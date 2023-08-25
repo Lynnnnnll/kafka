@@ -129,6 +129,7 @@ class KafkaZkClient private (zooKeeperClient: ZooKeeperClient, isSecure: Boolean
 
     def tryCreateControllerZNodeAndIncrementEpoch(): (Int, Int) = {
       try {
+        // 事务原子注册controller节点和更新controller epoch节点
         val transaction = zooKeeperClient.createTransaction()
         transaction.create(ControllerZNode.path, ControllerZNode.encode(controllerId, timestamp),
           acls(ControllerZNode.path).asJava, CreateMode.EPHEMERAL)

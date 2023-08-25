@@ -597,6 +597,9 @@ class KafkaApis(val requestChannel: RequestChannel,
       }
     }
 
+    /**
+     * @param responsePartitionData
+     */
     // the callback for process a fetch response, invoked before throttling
     def processResponseCallback(responsePartitionData: Seq[(TopicPartition, FetchPartitionData)]): Unit = {
       val partitions = new util.LinkedHashMap[TopicPartition, FetchResponse.PartitionData[Records]]
